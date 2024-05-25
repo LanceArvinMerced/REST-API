@@ -33,7 +33,7 @@ def get_employees():
 #get by id
 @app.route("/employee/<int:id>", methods=["GET"])
 def get_employeeName_by_id(id):
-    data = data_fetch("""SELECT * FROM employee where id = {}""".format(id))
+    data = data_fetch("""SELECT * FROM employee where id = {123}""".format(id))
     return make_response(jsonify(data), 200)
 
 #inner join
