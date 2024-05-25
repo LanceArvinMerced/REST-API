@@ -42,15 +42,20 @@ def get__by_employee(id):
     data = data_fetch(
         """
 SELECT 
-    accident.accidentID,
-    employee.employeeName
+    employee.employeeName, 
+    employee.employeeDepartment, 
+    accident.accidentDescription, 
+    accident.accidentDate, 
+    accident.accidentLocation 
 FROM 
-    accident
+    employee 
 INNER JOIN 
-    employee
+    accident 
 ON 
-    accident.employee_employeeID = employee.employeeID
-WHERE accident.accidentID = 3;
+    employee.employeeID = accident.employee_employeeID 
+WHERE 
+    employee.employeeID = {};
+
     """
     .format(accidentID)
 
