@@ -80,7 +80,7 @@ def add_employee():
     cur.close()
     return make_response(
         jsonify(
-            {"message": "actor added successfully", "rows_affected": rows_affected}
+            {"message": "employee added successfully", "rows_affected": rows_affected}
         ),
         201,
     )
@@ -100,22 +100,22 @@ def update_actor(id):
     cur.close()
     return make_response(
         jsonify(
-            {"message": "actor   updated successfully", "rows_affected": rows_affected}
+            {"message": "accident type updated successfully", "rows_affected": rows_affected}
         ),
         200,
     )
 
 #delete
-@app.route("/actors/<int:id>", methods=["DELETE"])
-def delete_actor(id):
+@app.route("/employee/<int:id>", methods=["DELETE"])
+def delete_employee(id):
     cur = mysql.connection.cursor()
-    cur.execute(""" DELETE FROM actor where actor_id = %s """, (id,))
+    cur.execute(""" DELETE FROM employee where employee = %s """, (id,))
     mysql.connection.commit()
     rows_affected = cur.rowcount
     cur.close()
     return make_response(
         jsonify(
-            {"message": "actor deleted successfully", "rows_affected": rows_affected}
+            {"message": "employee deleted successfully", "rows_affected": rows_affected}
         ),
         200,
     )
