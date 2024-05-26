@@ -1,6 +1,7 @@
 from flask import Flask, make_response, jsonify, request
 from flask_mysqldb import MySQL
 
+
 app = Flask(__name__)
 app.config["MYSQL_HOST"] = "localhost"
 app.config["MYSQL_USER"] = "root"
@@ -17,7 +18,7 @@ def hello_world():
     return "<p>Hello, World!</p>"
 
 
-def data_fetch(query):
+def data_fetch(query, params=None):
     cur = mysql.connection.cursor()
     cur.execute(query)
     data = cur.fetchall()
@@ -54,14 +55,14 @@ INNER JOIN
 ON 
     employee.employeeID = accident.employee_employeeID 
 where 
-	employee.employeeID = 123
+	employee.employeeID = {}
     """.format(id)
     )
     return make_response(
         jsonify({"employeeID": id, "count": len(data), "accident": data}), 200)
 
 #add
-@app.route("/employees", methods=["POST"])
+@app.route("/employee", methods=["POST"])
 def add_employee():
     cur = mysql.connection.cursor()
     info = request.get_json()
@@ -71,7 +72,7 @@ def add_employee():
     employeeSupervisor = info["employeeSupervisor"]
     employeeDetails = info["employeeDetails"]
     cur.execute(
-        """ INSERT INTO employee (employeeID, employeeDepartment, employeeName, employeeSupervisor, employeeDetails) VALUE (%s, %s, %s, %s, %s)""",
+        """ INSERT INTO employee (employeeID, employeeDepartment, employeeName, employeeSupervisor, employeeDetails) VALUES (%s, %s, %s, %s, %s)""",
         (employeeID, employeeDepartment, employeeName, employeeSupervisor, employeeDetails),
     )
     mysql.connection.commit()
@@ -87,7 +88,7 @@ def add_employee():
 
 #update
 @app.route("/refaccidenttype/<int:id>", methods=["PUT"])
-def update_actor(id):
+def update_refaccidenttype(id):
     cur = mysql.connection.cursor()
     info = request.get_json()
     accidentTypeDescription = info["accidentTypeDescription"]
@@ -119,13 +120,6 @@ def delete_accident(id):
         ),
         200,
     )
-
-#uri
-@app.route("/actors/format", methods=["GET"])
-def get_params():
-    fmt = request.args.get('id')
-    foo = request.args.get('aaaa')
-    return make_response(jsonify({"format":fmt, "foo":foo}),200)
 
 if __name__ == "__main__":
     app.run(debug=True)
