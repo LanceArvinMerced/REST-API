@@ -37,7 +37,7 @@ def get_accidentLocation_by_id(id):
     return make_response(jsonify(data), 200)
 
 #inner join
-@app.route("/employee/<int:accidentID>/accident", methods=["GET"])
+@app.route("/employee/<int:id>/accident", methods=["GET"])
 def get__by_employee(id):
     data = data_fetch(
         """
@@ -53,16 +53,12 @@ INNER JOIN
     accident 
 ON 
     employee.employeeID = accident.employee_employeeID 
-WHERE 
-    employee.employeeID = {};
-
-    """
-    .format(id)
-
+where 
+	employee.employeeID = 123
+    """.format(id)
     )
     return make_response(
-        jsonify({"employee_id": id, "count": len(data), "accident": data}), 200
-    )
+        jsonify({"employeeID": id, "count": len(data), "accident": data}), 200)
 
 #add
 @app.route("/refaccidenttype", methods=["POST"])
