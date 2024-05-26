@@ -33,7 +33,7 @@ def get_employees():
 #get by id
 @app.route("/accident/<int:id>", methods=["GET"])
 def get_accidentLocation_by_id(id):
-    data = data_fetch("""SELECT * FROM accident where accidentID = {1}""".format(id))
+    data = data_fetch("""SELECT * FROM accident where accidentID = {}""".format(id))
     return make_response(jsonify(data), 200)
 
 #inner join
