@@ -71,7 +71,7 @@ def add_employee():
     employeeSupervisor = info["employeeSupervisor"]
     employeeDetails = info["employeeDetails"]
     cur.execute(
-        """ INSERT INTO employees (employeeID, employeeDepartment, employeeName, employeeSupervisor, employeeDetails) VALUE (%s, %s, %s, %s, %s)""",
+        """ INSERT INTO employee (employeeID, employeeDepartment, employeeName, employeeSupervisor, employeeDetails) VALUE (%s, %s, %s, %s, %s)""",
         (employeeID, employeeDepartment, employeeName, employeeSupervisor, employeeDetails),
     )
     mysql.connection.commit()
