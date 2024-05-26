@@ -90,7 +90,7 @@ def add_employee():
 def update_actor(id):
     cur = mysql.connection.cursor()
     info = request.get_json()
-    accidentTypeDescription = ["accidentTypeDescription"]
+    accidentTypeDescription = info["accidentTypeDescription"]
     cur.execute(
         """ UPDATE refaccidenttype SET accidentTypeDescription = %s WHERE accidentTypeID = %s """,
         (accidentTypeDescription, id),
