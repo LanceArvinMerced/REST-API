@@ -106,16 +106,16 @@ def update_actor(id):
     )
 
 #delete
-@app.route("/employee/<int:id>", methods=["DELETE"])
+@app.route("/refaccidenttype/<int:id>", methods=["DELETE"])
 def delete_employee(id):
     cur = mysql.connection.cursor()
-    cur.execute(""" DELETE FROM employee where employee = %s """, (id,))
+    cur.execute(""" DELETE FROM refaccidenttype where accidentTypeID = %s """, (id,))
     mysql.connection.commit()
     rows_affected = cur.rowcount
     cur.close()
     return make_response(
         jsonify(
-            {"message": "employee deleted successfully", "rows_affected": rows_affected}
+            {"message": "accident type deleted successfully", "rows_affected": rows_affected}
         ),
         200,
     )
