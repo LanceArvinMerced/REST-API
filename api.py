@@ -25,10 +25,10 @@ def data_fetch(query):
     return data
 
 #create/get
-#@app.route("/employee", methods=["GET"])
-#def get_employees():
- #   data = data_fetch("""select * from employee""")
-  #  return make_response(jsonify(data), 200)
+@app.route("/accident", methods=["GET"])
+def get_accident():
+    data = data_fetch("""select * from accident""")
+    return make_response(jsonify(data), 200)
 
 #get by id
 @app.route("/accident/<int:id>", methods=["GET"])
