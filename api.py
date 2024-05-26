@@ -25,10 +25,10 @@ def data_fetch(query):
     return data
 
 #create/get
-@app.route("/employee", methods=["GET"])
-def get_employees():
-    data = data_fetch("""select * from employee""")
-    return make_response(jsonify(data), 200)
+#@app.route("/employee", methods=["GET"])
+#def get_employees():
+ #   data = data_fetch("""select * from employee""")
+  #  return make_response(jsonify(data), 200)
 
 #get by id
 @app.route("/accident/<int:id>", methods=["GET"])
@@ -61,15 +61,18 @@ where
         jsonify({"employeeID": id, "count": len(data), "accident": data}), 200)
 
 #add
-@app.route("/refaccidenttype", methods=["POST"])
-def add_refaccidenttype():
+@app.route("/employees", methods=["POST"])
+def add_employee():
     cur = mysql.connection.cursor()
     info = request.get_json()
-    accidentTypeID = info["21"]
-    accidentTypeDescription = info["burn"]
+    employeeID = info["employeeID"]
+    employeeDepartment = info["employeeDepartment"]
+    employeeName = info["employeeName"]
+    employeeSupervisor = info["employeeSupervisor"]
+    employeeDetails = info["employeeDetails"]
     cur.execute(
-        """ INSERT INTO actor (first_name, last_name) VALUE (%s, %s)""",
-        (accidentTypeID, accidentTypeDescription),
+        """ INSERT INTO employees (employeeID, employeeDepartment, employeeName, employeeSupervisor, employeeDetails) VALUE (%s, %s, %s, %s, %s)""",
+        (employeeID, employeeDepartment, employeeName, employeeSupervisor, employeeDetails),
     )
     mysql.connection.commit()
     print("row(s) affected :{}".format(cur.rowcount))
