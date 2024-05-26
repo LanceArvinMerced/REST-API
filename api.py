@@ -31,9 +31,9 @@ def get_employees():
     return make_response(jsonify(data), 200)
 
 #get by id
-@app.route("/employee/<int:id>", methods=["GET"])
-def get_employeeName_by_id(id):
-    data = data_fetch("""SELECT * FROM employee where id = {123}""".format(id))
+@app.route("/accident/<int:id>", methods=["GET"])
+def get_accidentLocation_by_id(id):
+    data = data_fetch("""SELECT * FROM accident where accidentID = {1}""".format(id))
     return make_response(jsonify(data), 200)
 
 #inner join
@@ -57,7 +57,7 @@ WHERE
     employee.employeeID = {};
 
     """
-    .format(accidentID)
+    .format(id)
 
     )
     return make_response(
